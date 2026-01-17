@@ -1,0 +1,21 @@
+`timescale 1ns / 1ps
+module test_bench( );
+ reg clk, rst, pre;
+ wire [3:0] q;
+ 
+//instanciate the module 
+counter dut(.clk(clk), .rst(rst), .pre(pre), .q(q));
+
+always #5 clk = ~clk;
+
+initial begin
+clk = 0;
+rst = 0;
+pre = 1;
+$monitor("%0t  rst=%0b  pre=%0b  q=%0b", $time, rst, pre, q);
+#10;
+rst = 1;
+#1000;
+$finish;
+end  
+endmodule
