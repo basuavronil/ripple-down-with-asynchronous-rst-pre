@@ -1,0 +1,16 @@
+module counter( 
+ input rst, pre, clk,
+ output [3:0] q
+ );
+ 
+ wire [3:0] w;
+ 
+ //ripple d-ff (T=1 toggle)
+ d_ff dut1(.clk(clk), .rst(rst), .pre(pre), .d(~w[0]), .q(w[0]));
+ d_ff dut2(.clk(w[0]), .rst(rst), .pre(pre), .d(~w[1]), .q(w[1]));
+ d_ff dut3(.clk(w[1]), .rst(rst), .pre(pre), .d(~w[2]), .q(w[2]));
+ d_ff dut4(.clk(w[2]), .rst(rst), .pre(pre), .d(~w[3]), .q(w[3]));
+
+assign q = w;
+
+endmodule
